@@ -1,0 +1,127 @@
+.mechanics-header {
+  margin-bottom: 40px;
+}
+
+.mechanics-header h1 {
+  font-size: 3rem;
+  margin-bottom: 12px;
+}
+
+.mechanics-toolbar {
+  margin-bottom: 32px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.location-filter {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mechanics-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mechanic-card {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 32px;
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.mechanic-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(255, 75, 43, 0.1);
+}
+
+.mechanic-content {
+  display: flex;
+  gap: 24px;
+  flex: 1;
+}
+
+.mechanic-info-main {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mechanic-title-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mechanic-title-row h3 {
+  font-size: 1.5rem;
+}
+
+.status-badge {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-badge.available {
+  background: rgba(52, 199, 89, 0.15);
+  color: #34c759;
+}
+
+.status-badge.busy {
+  background: rgba(255, 149, 0, 0.15);
+  color: #ff9500;
+}
+
+.mechanic-area {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-text-muted);
+}
+
+.mechanic-rating {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.rating-score {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.rating-count {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.mechanic-specialty {
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+.mechanic-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .mechanic-card {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .mechanic-actions {
+    min-width: 100%;
+  }
+}
