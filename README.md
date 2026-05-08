@@ -15,7 +15,7 @@
 <br/>
 
 ## 🚗 Overview
-**Seyarti** is a dynamic, full-stack automotive dashboard designed strictly for vehicle owners in Jordan. It serves as an all-in-one hub connecting car owners with trusted local mechanics, a realtime spare parts marketplace, and cutting-edge analytical tools.
+**Seyarati** is a dynamic, full-stack automotive dashboard designed strictly for vehicle owners in Jordan. It serves as an all-in-one hub connecting car owners with trusted local mechanics, a realtime spare parts marketplace, and cutting-edge analytical tools.
 
 Built from the ground up prioritizing speed, beautiful dark-mode glassmorphic UI, and powerful native Express REST APIs.
 
