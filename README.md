@@ -36,7 +36,7 @@ Seyarti uses a powerful dual-runtime environment seamlessly integrated via `conc
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/petrosoudah/seyarti.git
+   git clone https://github.com/petrosoudah/seyarati.git
    cd seyarti
    ```
 2. **Install all dependencies:**
