@@ -1,6 +1,43 @@
 import express from 'express';
 import cors from 'cors';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { initDb } from './db.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const envFilePath = path.resolve(__dirname, '../.env');
+
+function loadEnvFile(filePath) {
+  if (!fs.existsSync(filePath)) return;
+
+  const envContent = fs.readFileSync(filePath, 'utf8');
+
+  for (const rawLine of envContent.split(/\r?\n/)) {
+    const line = rawLine.trim();
+    if (!line || line.startsWith('#')) continue;
+
+    const separatorIndex = line.indexOf('=');
+    if (separatorIndex === -1) continue;
+
+    const key = line.slice(0, separatorIndex).trim();
+    let value = line.slice(separatorIndex + 1).trim();
+
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+
+    if (key && process.env[key] === undefined) {
+      process.env[key] = value;
+    }
+  }
+}
+
+loadEnvFile(envFilePath);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -222,4 +259,5 @@ app.post('/api/chat', async (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Seyarti API Backend listening on http://localhost:${PORT}`);
+  console.log(`Groq chat enabled: ${GROQ_API_KEY ? 'yes' : 'no'}`);
 });

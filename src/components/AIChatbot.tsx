@@ -8,6 +8,7 @@ const AIChatbot = () => {
     { id: 1, text: "Hi there! I'm Seyarti AI. How can I help you with your car today?", sender: 'bot' }
   ]);
   const [input, setInput] = useState('');
+  const [isSending, setIsSending] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -18,12 +19,13 @@ const AIChatbot = () => {
 
   const handleSend = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!input.trim()) return;
+    if (!input.trim() || isSending) return;
 
     const userText = input;
     const userMessage = { id: messages.length + 1, text: userText, sender: 'user' };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
+    setIsSending(true);
 
     try {
       const res = await fetch('/api/chat', {
@@ -31,6 +33,11 @@ const AIChatbot = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: userText })
       });
+
+      if (!res.ok) {
+        throw new Error(`Chat request failed with status ${res.status}`);
+      }
+
       const data = await res.json();
       setMessages(prev => [
         ...prev, 
@@ -38,6 +45,16 @@ const AIChatbot = () => {
       ]);
     } catch(err) {
       console.error(err);
+      setMessages(prev => [
+        ...prev,
+        {
+          id: prev.length + 1,
+          text: 'I could not reach the assistant just now. Please make sure the backend server is running, then try again.',
+          sender: 'bot'
+        }
+      ]);
+    } finally {
+      setIsSending(false);
     }
   };
 
@@ -85,7 +102,7 @@ const AIChatbot = () => {
               value={input}
               onChange={(e) => setInput(e.target.value)}
             />
-            <button type="submit" disabled={!input.trim()}>
+            <button type="submit" disabled={!input.trim() || isSending}>
               <Send size={18} />
             </button>
           </form>
