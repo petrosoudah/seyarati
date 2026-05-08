@@ -1,81 +1,179 @@
-.register-container {
-  max-width: 600px;
-  margin: 0 auto;
+.register-page {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
 }
 
-.register-header {
-  text-align: center;
-  margin-bottom: 40px;
+.register-layout {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 24px;
+  align-items: start;
 }
 
-.register-header h1 {
-  font-size: 3rem;
-  margin-bottom: 16px;
+.register-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding-top: 20px;
 }
 
-.subtitle {
+.register-intro h1 {
+  font-size: clamp(2.6rem, 6vw, 4.6rem);
+}
+
+.register-highlights {
+  display: grid;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.highlight-card {
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+}
+
+.highlight-card svg {
+  color: var(--color-primary-strong);
+  flex-shrink: 0;
+}
+
+.highlight-card strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.highlight-card p {
   color: var(--color-text-muted);
-  font-size: 1.1rem;
 }
 
 .register-card {
-  padding: 40px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+}
+
+.register-card-header {
+  margin-bottom: 22px;
+}
+
+.register-card-header h2 {
+  font-size: 1.6rem;
+  margin-bottom: 6px;
+}
+
+.register-card-header p {
+  color: var(--color-text-muted);
 }
 
 .register-form {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
 .input-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
-.input-group label {
-  font-weight: 500;
-  font-size: 0.95rem;
-  color: var(--color-text);
+.register-note,
+.decoded-car {
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--color-primary-strong);
+  border: 1px solid rgba(15, 118, 110, 0.14);
 }
 
-.vintage-input {
-  background: rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 16px;
-  color: white;
-  font-size: 1.1rem;
-  font-family: var(--font-sans);
-  transition: all var(--transition-fast);
-  text-transform: uppercase;
+.decoded-car p {
+  margin: 0;
 }
 
-.vintage-input:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(255, 75, 43, 0.2);
+.register-success {
+  align-items: flex-start;
+  flex-direction: column;
 }
 
-.status-message {
+.register-success-line {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
+  gap: 10px;
 }
 
-.status-message.error {
-  background: rgba(255, 59, 48, 0.1);
-  color: #ff3b30;
-  border: 1px solid rgba(255, 59, 48, 0.2);
+.register-success-copy {
+  padding-left: 28px;
+  font-size: 0.94rem;
 }
 
-.status-message.success {
-  background: rgba(52, 199, 89, 0.1);
-  color: #34c759;
-  border: 1px solid rgba(52, 199, 89, 0.2);
+.register-submit {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.garage-section {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.garage-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 2.2rem;
+}
+
+.garage-empty {
+  text-align: center;
+}
+
+.garage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.garage-card {
+  padding: 26px 24px;
+  text-align: center;
+}
+
+.garage-icon {
+  margin: 0 auto 16px;
+  color: var(--color-primary-strong);
+}
+
+.garage-card h3 {
+  font-size: 1.4rem;
+}
+
+.garage-card h4 {
+  margin-top: 6px;
+  color: var(--color-text-muted);
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  font-weight: 600;
+}
+
+.garage-vin {
+  display: inline-flex;
+  margin-top: 16px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: rgba(28, 28, 26, 0.92);
+}
+
+.garage-vin p {
+  color: #f8f6f2;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.82rem;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 900px) {
+  .register-layout {
+    grid-template-columns: 1fr;
+  }
 }

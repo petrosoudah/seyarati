@@ -59,11 +59,12 @@ const Messages = () => {
   };
 
   return (
-    <div className="container page-enter-active" style={{ height: 'calc(100vh - 80px)', padding: '24px 0' }}>
+    <div className="container page-shell page-enter-active messages-page">
       <div className="messages-layout glass-panel">
         <aside className="messages-sidebar">
           <div className="sidebar-header">
             <h3>Messages</h3>
+            <p>Active repair conversations</p>
           </div>
           <div className="contacts-list">
             {MOCK_CONTACTS.map(contact => (
@@ -93,20 +94,21 @@ const Messages = () => {
             <div className="chat-header-info">
               <UserCircle size={40} color="var(--color-text-muted)" />
               <div>
-                <h3 style={{ margin: 0 }}>{activeContact.name}</h3>
-                <span style={{ fontSize: '0.8rem', color: 'var(--color-primary)' }}>Online</span>
+                <h3>{activeContact.name}</h3>
+                <span className="chat-presence">Online</span>
               </div>
             </div>
             
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div className="chat-header-actions">
               <button 
-                className="btn-primary" 
-                style={{ padding: '8px 16px', fontSize: '0.9rem', display: 'flex', alignItems: 'center', gap: '8px', background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)', boxShadow: 'none' }}
+                className="btn-primary btn-sm pay-button"
                 onClick={() => navigate('/payment', { state: { amount: '75.00', mechanicName: activeContact.name } })}
               >
                 <CreditCard size={18} /> Pay Securely
               </button>
-              <MoreVertical size={24} color="var(--color-text-muted)" style={{ cursor: 'pointer' }} />
+              <button type="button" className="chat-more-button" aria-label="More options">
+                <MoreVertical size={22} color="var(--color-text-muted)" />
+              </button>
             </div>
           </header>
 

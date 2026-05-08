@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { CheckCircle, AlertCircle, CarFront } from 'lucide-react';
+import { AlertCircle, CheckCircle, CarFront, ScanLine } from 'lucide-react';
 import './RegisterCar.css';
 
 const RegisterCar = () => {
@@ -67,38 +67,61 @@ const RegisterCar = () => {
   };
 
   return (
-    <div className="container page-enter-active" style={{ paddingTop: '60px', paddingBottom: '80px' }}>
-      <div className="register-container">
-        <div className="register-header">
-          <h1 className="text-gradient-primary">Register Your Vehicle</h1>
-          <p className="subtitle">Enter your 17-character VIN number to add your car to Seyarti.</p>
-        </div>
+    <div className="container page-shell page-enter-active register-page">
+      <div className="register-layout">
+        <section className="register-intro">
+          <span className="eyebrow">Garage setup</span>
+          <h1 className="text-gradient-primary">Register your vehicle</h1>
+          <p className="subtitle">Enter a 17-character VIN to create a cleaner service history and unlock smarter parts and mechanic recommendations.</p>
+
+          <div className="register-highlights">
+            <div className="surface-card highlight-card">
+              <ScanLine size={20} />
+              <div>
+                <strong>VIN lookup in flow</strong>
+                <p>Decode before saving so users get confidence early.</p>
+              </div>
+            </div>
+            <div className="surface-card highlight-card">
+              <CarFront size={20} />
+              <div>
+                <strong>Persistent garage</strong>
+                <p>Every registered car stays available as a reusable profile.</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
         <div className="glass-panel register-card">
+          <div className="register-card-header">
+            <h2>Vehicle details</h2>
+            <p>Use uppercase VIN format for best matching.</p>
+          </div>
+
           <form onSubmit={handleSubmit} className="register-form">
             <div className="input-group">
-              <label htmlFor="vin">Vehicle Identification Number (VIN)</label>
+              <label htmlFor="vin" className="field-label">Vehicle Identification Number</label>
               <input 
                 type="text" 
                 id="vin" 
                 value={vin}
                 onChange={(e) => { setVin(e.target.value.toUpperCase()); setStatus('idle'); }}
-                placeholder="e.g. 1HGCM82633A004..."
+                placeholder="1HGCM82633A004352"
                 maxLength={17}
                 className="vintage-input"
               />
             </div>
             
             {isDecoding && (
-              <div style={{ marginBottom: '16px', fontSize: '0.9rem', color: 'var(--color-primary)' }}>
-                Decoding VIN...
+              <div className="register-note">
+                Decoding VIN and checking vehicle data...
               </div>
             )}
             
             {!isDecoding && carDetails && status !== 'success' && (
-               <div className="decoded-car glass-panel" style={{ padding: '12px', marginTop: '8px', marginBottom: '16px', borderRadius: '8px', background: 'rgba(56, 189, 248, 0.1)' }}>
-                 <p style={{ margin: 0, fontSize: '0.9rem' }}>
-                   <strong>Vehicle Found:</strong> {carDetails.make} {carDetails.model}
+               <div className="decoded-car">
+                 <p>
+                   <strong>Vehicle found:</strong> {carDetails.make} {carDetails.model}
                  </p>
                </div>
             )}
@@ -106,19 +129,19 @@ const RegisterCar = () => {
             {status === 'error' && (
               <div className="status-message error">
                 <AlertCircle size={18} />
-                <span>Please enter a valid 17-character VIN. Or it's already registered.</span>
+                <span>Please enter a valid 17-character VIN, or this car may already be registered.</span>
               </div>
             )}
 
             {status === 'success' && (
-              <div className="status-message success" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '4px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div className="status-message success register-success">
+                <div className="register-success-line">
                   <CheckCircle size={18} />
-                  <span>Vehicle registered successfully!</span>
+                  <span>Vehicle registered successfully.</span>
                 </div>
                 {carDetails && (
-                  <div style={{ paddingLeft: '26px', fontSize: '0.9rem', opacity: 0.9 }}>
-                    Saved: <strong>{carDetails.make} {carDetails.model}</strong>
+                  <div className="register-success-copy">
+                    Saved to your garage: <strong>{carDetails.make} {carDetails.model}</strong>
                   </div>
                 )}
               </div>
@@ -126,31 +149,30 @@ const RegisterCar = () => {
 
             <button 
               type="submit" 
-              className="btn-primary" 
+              className="btn-primary register-submit" 
               disabled={status === 'loading' || status === 'success' || vin.length !== 17 || isDecoding}
-              style={{ width: '100%', marginTop: '16px', display: 'flex', justifyContent: 'center' }}
             >
-              {status === 'loading' ? 'Saving...' : 'Register Vehicle'}
+              {status === 'loading' ? 'Saving...' : 'Register vehicle'}
             </button>
           </form>
         </div>
       </div>
 
-      <div className="garage-section" style={{ marginTop: '80px' }}>
-        <h2 className="text-gradient-primary" style={{ marginBottom: '24px', display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+      <div className="garage-section">
+        <h2 className="garage-title text-gradient-primary">
           <CarFront size={28} /> My Garage
         </h2>
         {garage.length === 0 ? (
-          <p className="subtitle" style={{ textAlign: 'center' }}>No cars in your garage yet.</p>
+          <p className="subtitle garage-empty">No cars in your garage yet.</p>
         ) : (
-          <div className="garage-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+          <div className="garage-grid">
             {garage.map(car => (
-              <div key={car.id} className="glass-panel" style={{ padding: '24px', borderRadius: '12px', textAlign: 'center' }}>
-                <CarFront size={48} color="var(--color-primary)" style={{ opacity: 0.8, marginBottom: '16px' }} />
-                <h3 style={{ margin: '0 0 8px 0', fontSize: '1.4rem' }}>{car.make}</h3>
-                <h4 style={{ margin: '0 0 16px 0', fontSize: '1.1rem', color: 'var(--color-text-muted)', fontWeight: 'normal' }}>{car.model}</h4>
-                <div style={{ background: 'rgba(0,0,0,0.3)', padding: '8px', borderRadius: '6px', display: 'inline-block' }}>
-                  <p style={{ margin: 0, color: 'var(--color-text-muted)', fontSize: '0.85rem', fontFamily: 'monospace', letterSpacing: '1px' }}>{car.vin}</p>
+              <div key={car.id} className="surface-card garage-card">
+                <CarFront size={44} className="garage-icon" />
+                <h3>{car.make}</h3>
+                <h4>{car.model}</h4>
+                <div className="garage-vin">
+                  <p>{car.vin}</p>
                 </div>
               </div>
             ))}

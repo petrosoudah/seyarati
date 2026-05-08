@@ -31,8 +31,9 @@ const Parts = () => {
   );
 
   return (
-    <div className="container page-enter-active" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
-      <div className="parts-header">
+    <div className="container page-shell page-enter-active">
+      <div className="parts-header page-header">
+        <span className="eyebrow">Marketplace</span>
         <h1 className="text-gradient-primary">Spare Parts Marketplace</h1>
         <p className="subtitle">Find genuine and aftermarket parts from verified sellers across Jordan.</p>
       </div>
@@ -45,8 +46,8 @@ const Parts = () => {
           </div>
           
           <div className="filter-group">
-            <label>Car Make</label>
-            <select className="vintage-input" style={{ padding: '10px' }} value={filterMake} onChange={(e) => setFilterMake(e.target.value)}>
+            <label className="field-label">Car Make</label>
+            <select className="vintage-input filter-select" value={filterMake} onChange={(e) => setFilterMake(e.target.value)}>
               <option>All Makes</option>
               <option>Toyota</option>
               <option>Honda</option>
@@ -56,8 +57,8 @@ const Parts = () => {
           </div>
 
           <div className="filter-group">
-            <label>Category</label>
-            <select className="vintage-input" style={{ padding: '10px' }} value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
+            <label className="field-label">Category</label>
+            <select className="vintage-input filter-select" value={filterCategory} onChange={(e) => setFilterCategory(e.target.value)}>
               <option>All Categories</option>
               <option>Engine</option>
               <option>Brakes</option>
@@ -81,8 +82,8 @@ const Parts = () => {
           </div>
 
           <div className="parts-grid">
-            {loading ? <p>Loading parts...</p> : filteredParts.map(part => (
-              <div key={part.id} className="part-card glass-panel">
+            {loading ? <p className="parts-state">Loading parts...</p> : filteredParts.map(part => (
+              <div key={part.id} className="part-card surface-card">
                 <div className="part-image-placeholder">
                   {part.image ? (
                     <img src={part.image} alt={part.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -96,7 +97,7 @@ const Parts = () => {
                   <p className="part-seller">Seller: {part.seller}</p>
                   <div className="part-footer">
                     <span className="part-price">{part.price}</span>
-                    <button className="btn-primary" style={{ padding: '8px 16px', fontSize: '0.9rem' }}>Contact</button>
+                    <button className="btn-primary btn-sm">Contact</button>
                   </div>
                 </div>
               </div>

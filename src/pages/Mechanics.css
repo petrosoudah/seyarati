@@ -1,18 +1,11 @@
-.mechanics-header {
-  margin-bottom: 40px;
-}
-
-.mechanics-header h1 {
-  font-size: 3rem;
-  margin-bottom: 12px;
-}
-
 .mechanics-toolbar {
-  margin-bottom: 32px;
-  padding: 16px 24px;
+  margin-bottom: 22px;
+  padding: 16px 18px;
+  border-radius: 24px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  gap: 12px;
 }
 
 .location-filter {
@@ -21,106 +14,112 @@
   gap: 12px;
 }
 
+.mechanic-select {
+  min-width: 180px;
+}
+
 .mechanics-list {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 18px;
 }
 
 .mechanic-card {
-  display: flex;
-  justify-content: space-between;
-  padding: 24px 32px;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  padding: 24px;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 .mechanic-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(255, 75, 43, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 .mechanic-content {
   display: flex;
-  gap: 24px;
-  flex: 1;
 }
 
 .mechanic-info-main {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .mechanic-title-row {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.mechanic-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  object-fit: cover;
 }
 
 .mechanic-title-row h3 {
-  font-size: 1.5rem;
+  font-size: 1.45rem;
 }
 
 .status-badge {
-  font-size: 0.8rem;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-weight: 600;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .status-badge.available {
-  background: rgba(52, 199, 89, 0.15);
-  color: #34c759;
+  background: rgba(21, 128, 61, 0.1);
+  color: var(--color-success);
 }
 
 .status-badge.busy {
-  background: rgba(255, 149, 0, 0.15);
-  color: #ff9500;
+  background: rgba(180, 83, 9, 0.1);
+  color: var(--color-warning);
 }
 
-.mechanic-area {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--color-text-muted);
-}
-
+.mechanic-area,
 .mechanic-rating {
   display: flex;
   align-items: center;
-  gap: 6px;
-  margin-top: 4px;
+  gap: 8px;
+}
+
+.mechanic-area,
+.rating-count,
+.mechanic-specialty {
+  color: var(--color-text-muted);
 }
 
 .rating-score {
-  font-weight: 700;
-  font-size: 1.1rem;
-}
-
-.rating-count {
-  color: var(--color-text-muted);
-  font-size: 0.9rem;
-}
-
-.mechanic-specialty {
-  margin-top: 12px;
-  font-size: 0.95rem;
+  font-weight: 800;
 }
 
 .mechanic-actions {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 12px;
   min-width: 200px;
-  justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
+  .mechanics-toolbar,
   .mechanic-card {
+    grid-template-columns: 1fr;
     flex-direction: column;
-    gap: 24px;
   }
+
+  .mechanic-card {
+    display: flex;
+  }
+
   .mechanic-actions {
     min-width: 100%;
   }

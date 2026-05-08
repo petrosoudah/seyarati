@@ -62,8 +62,9 @@ const Mechanics = () => {
   };
 
   return (
-    <div className="container page-enter-active" style={{ paddingTop: '40px', paddingBottom: '80px' }}>
-      <div className="mechanics-header">
+    <div className="container page-shell page-enter-active">
+      <div className="mechanics-header page-header">
+        <span className="eyebrow">Workshop discovery</span>
         <h1 className="text-gradient-primary">Find Top Mechanics</h1>
         <p className="subtitle">Discover highly-rated mechanics in your area.</p>
       </div>
@@ -74,8 +75,7 @@ const Mechanics = () => {
           <select 
             value={filterArea} 
             onChange={e => setFilterArea(e.target.value)}
-            className="vintage-input"
-            style={{ border: 'none', background: 'transparent', padding: '8px' }}
+            className="vintage-input mechanic-select"
           >
             <option value="All">All Regions</option>
             <option value="Amman">Amman</option>
@@ -87,7 +87,6 @@ const Mechanics = () => {
           className="btn-secondary" 
           onClick={handleUseMyLocation} 
           disabled={loadingLocation}
-          style={{ display: 'flex', gap: '8px', alignItems: 'center', padding: '8px 16px', fontSize: '0.9rem' }}
         >
           <Crosshair size={16} /> 
           {loadingLocation ? 'Locating...' : 'Use My Location'}
@@ -96,12 +95,12 @@ const Mechanics = () => {
 
       <div className="mechanics-list">
         {mechanics.map(mechanic => (
-          <div key={mechanic.id} className="mechanic-card glass-panel">
+          <div key={mechanic.id} className="mechanic-card surface-card">
             <div className="mechanic-content">
               <div className="mechanic-info-main">
                 <div className="mechanic-title-row">
                   {mechanic.image && (
-                    <img src={mechanic.image} alt={mechanic.name} style={{ width: '48px', height: '48px', borderRadius: '24px', objectFit: 'cover' }} />
+                    <img src={mechanic.image} alt={mechanic.name} className="mechanic-avatar" />
                   )}
                   <h3>{mechanic.name}</h3>
                   <span className={`status-badge ${mechanic.status.toLowerCase()}`}>{mechanic.status}</span>
@@ -118,12 +117,11 @@ const Mechanics = () => {
               </div>
             </div>
             <div className="mechanic-actions">
-              <button className="btn-secondary" style={{ display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center' }}>
+              <button className="btn-secondary">
                 <Phone size={18} /> Call Now
               </button>
               <button 
                 className="btn-primary" 
-                style={{ display: 'flex', gap: '8px', alignItems: 'center', justifyContent: 'center' }}
                 onClick={() => handleMessage(mechanic.id)}
               >
                 <MessageSquare size={18} /> Message

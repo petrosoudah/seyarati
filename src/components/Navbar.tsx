@@ -1,23 +1,51 @@
-import { Link } from 'react-router-dom';
-import { UserCircle } from 'lucide-react';
+import { Menu, Sparkles, UserCircle } from 'lucide-react';
+import { NavLink } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+  const navItems = [
+    { to: '/register', label: 'Garage' },
+    { to: '/parts', label: 'Parts' },
+    { to: '/mechanics', label: 'Mechanics' },
+    { to: '/messages', label: 'Messages' },
+  ];
+
   return (
-    <nav className="navbar glass-panel">
+    <nav className="navbar">
       <div className="container navbar-container">
-        <Link to="/" className="navbar-logo" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <img src="/logo.png" alt="Seyarti Logo" style={{ height: '36px', borderRadius: '8px' }} />
-          <span className="text-gradient-primary" style={{ fontFamily: 'monospace', fontWeight: 'bold' }}>seyarti_v1</span>
-        </Link>
+        <NavLink to="/" className="navbar-logo">
+          <div className="navbar-logo-mark">
+            <img src="/logo.png" alt="Seyarti Logo" />
+          </div>
+          <div className="navbar-logo-copy">
+            <span className="navbar-logo-title">Seyarti</span>
+            <span className="navbar-logo-subtitle">Smart ownership layer</span>
+          </div>
+        </NavLink>
+
         <div className="navbar-links">
-          <Link to="/register">Register Car</Link>
-          <Link to="/parts">Parts Search</Link>
-          <Link to="/mechanics">Find Mechanics</Link>
-          <Link to="/messages">Messages</Link>
-          <Link to="/profile" className="profile-link" style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </div>
+
+        <div className="navbar-actions">
+          <div className="navbar-badge">
+            <Sparkles size={14} />
+            <span>2026 refresh</span>
+          </div>
+          <NavLink to="/profile" className="profile-link">
             <UserCircle size={20} /> Profile
-          </Link>
+          </NavLink>
+          <button className="nav-menu-button" type="button" aria-label="Navigation menu">
+            <Menu size={20} />
+          </button>
         </div>
       </div>
     </nav>

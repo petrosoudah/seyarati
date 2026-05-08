@@ -54,7 +54,10 @@ const AIChatbot = () => {
           <div className="ai-chat-header">
             <div className="ai-chat-title">
               <Bot size={20} />
-              <span>Seyarti AI Assistant</span>
+              <div>
+                <span>Seyarti AI Assistant</span>
+                <small>Fast guidance for owners</small>
+              </div>
             </div>
             <button className="ai-chat-close" onClick={() => setIsOpen(false)}>
               <X size={20} />

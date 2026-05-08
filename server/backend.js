@@ -4,6 +4,8 @@ import { initDb } from './db.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const GROQ_API_KEY = process.env.GROQ_API_KEY;
+const GROQ_MODEL = process.env.GROQ_MODEL || 'llama-3.3-70b-versatile';
 
 app.use(cors());
 app.use(express.json());
@@ -137,9 +139,7 @@ app.post('/api/messages', async (req, res) => {
   }
 });
 
-app.post('/api/chat', (req, res) => {
-  const { text } = req.body;
-  if (!text) return res.status(400).json({ error: 'No text provided' });
+function buildFallbackReply(text) {
   const t = text.toLowerCase();
   
   let reply = "Hello! I'm Seyarti AI. How can I help you with your vehicle today?";
@@ -163,11 +163,61 @@ app.post('/api/chat', (req, res) => {
   } else {
       reply = "That's an interesting technical question. I recommend directly messaging one of our verified Mechanics through the platform (under the Mechanics tab) for a precise, professional diagnosis based on your car's exact symptoms!";
   }
-  
-  // Simulate AI typing latency
+
+  return reply;
+}
+
+async function getGroqReply(text) {
+  const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${GROQ_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: GROQ_MODEL,
+      temperature: 0.4,
+      messages: [
+        {
+          role: 'system',
+          content: 'You are Seyarti AI, a concise and helpful automotive assistant for car owners in Jordan. Give practical advice, mention safety when relevant, and avoid pretending to inspect a vehicle physically.'
+        },
+        {
+          role: 'user',
+          content: text
+        }
+      ]
+    })
+  });
+
+  if (!response.ok) {
+    throw new Error(`Groq request failed with status ${response.status}`);
+  }
+
+  const data = await response.json();
+  return data.choices?.[0]?.message?.content?.trim();
+}
+
+app.post('/api/chat', async (req, res) => {
+  const { text } = req.body;
+  if (!text) return res.status(400).json({ error: 'No text provided' });
+
+  let reply = buildFallbackReply(text);
+
+  if (GROQ_API_KEY) {
+    try {
+      const groqReply = await getGroqReply(text);
+      if (groqReply) {
+        reply = groqReply;
+      }
+    } catch (err) {
+      console.error('Groq chat failed, using fallback reply.', err);
+    }
+  }
+
   setTimeout(() => {
-     res.json({ text: reply, sender: 'bot' });
-  }, 600);
+    res.json({ text: reply, sender: 'bot' });
+  }, 400);
 });
 
 app.listen(PORT, () => {

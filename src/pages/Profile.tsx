@@ -27,9 +27,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="container page-enter-active" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-      <div className="profile-header" style={{ marginBottom: '40px' }}>
-        <h1 className="text-gradient-primary" style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+    <div className="container page-shell page-enter-active">
+      <div className="profile-header page-header">
+        <h1 className="text-gradient-primary profile-title">
           <User size={36} /> My Profile
         </h1>
         <p className="subtitle">Manage your account settings and vehicle maintenance history.</p>
@@ -51,34 +51,34 @@ const Profile = () => {
           
           <div className="profile-form">
             <div className="input-group">
-              <label>Full Name</label>
+              <label className="field-label">Full Name</label>
               <input type="text" name="name" value={profile.name} onChange={handleChange} disabled={!isEditing} className="vintage-input" />
             </div>
             <div className="input-group">
-              <label>Email Address</label>
+              <label className="field-label">Email Address</label>
               <input type="email" name="email" value={profile.email} onChange={handleChange} disabled={!isEditing} className="vintage-input" />
             </div>
             <div className="input-group">
-              <label>Phone Number</label>
+              <label className="field-label">Phone Number</label>
               <input type="tel" name="phone" value={profile.phone} onChange={handleChange} disabled={!isEditing} className="vintage-input" />
             </div>
             <div className="input-group">
-              <label>Primary City</label>
+              <label className="field-label">Primary City</label>
               <input type="text" name="city" value={profile.city} onChange={handleChange} disabled={!isEditing} className="vintage-input" />
             </div>
           </div>
           
-          <div className="wallet-section" style={{ marginTop: '32px', padding: '20px', background: 'rgba(255, 75, 43, 0.05)', borderRadius: '12px', border: '1px solid rgba(255, 75, 43, 0.2)' }}>
-            <h3 style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}><CreditCard size={20} className="text-primary"/> Seyarti Digital Wallet</h3>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '16px' }}>Connect a card to enable intuitive 1-click payments to registered mechanics directly on the platform.</p>
-            <button className="btn-secondary" style={{ width: '100%' }}>Manage Payment Methods</button>
+          <div className="wallet-section">
+            <h3><CreditCard size={20} className="text-primary"/> Seyarti Digital Wallet</h3>
+            <p>Connect a card to enable intuitive 1-click payments to registered mechanics directly on the platform.</p>
+            <button className="btn-secondary wallet-button">Manage Payment Methods</button>
           </div>
         </div>
 
         {/* Maintenance History */}
         <div className="history-panel">
-          <div className="glass-panel profile-card" style={{ height: '100%' }}>
-            <div className="card-header" style={{ marginBottom: '24px' }}>
+          <div className="glass-panel profile-card profile-history-card">
+            <div className="card-header history-card-header">
               <h2><Clock size={22} className="text-primary" /> Maintenance History</h2>
             </div>
             
@@ -95,7 +95,7 @@ const Profile = () => {
                     </div>
                     <h3 className="history-service">{log.service}</h3>
                     <p className="history-mechanic">Performed by: {log.mechanic}</p>
-                    <button className="btn-link" style={{ marginTop: '12px', fontSize: '0.85rem', display: 'flex', alignItems: 'center', color: 'var(--color-primary)' }}>
+                    <button className="btn-link history-link">
                       View Receipt <ChevronRight size={14} />
                     </button>
                   </div>
@@ -103,7 +103,7 @@ const Profile = () => {
               ))}
             </div>
             
-            <button className="btn-secondary" style={{ width: '100%', marginTop: '24px' }}>Add Maintenance Log</button>
+            <button className="btn-secondary history-button">Add Maintenance Log</button>
           </div>
         </div>
       </div>

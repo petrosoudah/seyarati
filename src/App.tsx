@@ -9,11 +9,12 @@ import Messages from './pages/Messages';
 import Profile from './pages/Profile';
 import Payment from './pages/Payment';
 import AIChatbot from './components/AIChatbot';
+import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="app-container">
+      <div className="app-container app-shell">
         <Navbar />
         <main className="main-content">
           <Routes>

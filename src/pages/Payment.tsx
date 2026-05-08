@@ -31,11 +31,11 @@ const Payment = () => {
 
   if (status === 'success') {
     return (
-      <div className="container page-enter-active payment-container" style={{ paddingTop: '100px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', borderRadius: '24px', maxWidth: '500px', width: '100%' }}>
-          <CheckCircle size={64} className="text-primary" style={{ margin: '0 auto 24px auto' }} />
-          <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Payment Successful!</h2>
-          <p className="subtitle" style={{ marginBottom: '32px' }}>
+      <div className="container page-shell page-enter-active payment-success-shell">
+        <div className="glass-panel payment-success-card">
+          <CheckCircle size={64} className="text-primary payment-success-icon" />
+          <h2>Payment Successful!</h2>
+          <p className="subtitle payment-success-copy">
             You have successfully sent <strong>{amount} JOD</strong> to {mechanic}. Your maintenance log has been automatically updated.
           </p>
           <button className="btn-secondary" onClick={() => navigate('/profile')}>View Receipt</button>
@@ -45,17 +45,18 @@ const Payment = () => {
   }
 
   return (
-    <div className="container page-enter-active payment-container" style={{ paddingTop: '80px', paddingBottom: '80px' }}>
-      <div className="payment-header text-center" style={{ marginBottom: '40px' }}>
+    <div className="container page-shell page-enter-active payment-container">
+      <div className="payment-header page-header payment-header-center">
+        <span className="eyebrow">Secure checkout</span>
         <h1 className="text-gradient-primary">Secure Checkout</h1>
-        <p className="subtitle" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}>
+        <p className="subtitle payment-subtitle">
           <ShieldCheck size={18} className="text-primary" /> Powered by Seyarti Pay encrypted gateway
         </p>
       </div>
 
       <div className="payment-grid">
         <div className="payment-summary glass-panel">
-          <h2 style={{ marginBottom: '24px', fontSize: '1.2rem', color: 'var(--color-text-muted)' }}>Order Summary</h2>
+          <h2 className="payment-summary-title">Order Summary</h2>
           <div className="summary-row">
             <span>Mechanic / Shop</span>
             <strong>{mechanic}</strong>
@@ -67,44 +68,44 @@ const Payment = () => {
           <div className="summary-divider"></div>
           <div className="summary-row total">
             <span>Total Payable</span>
-            <span className="text-primary" style={{ fontSize: '1.8rem', fontWeight: 'bold' }}>{amount} JOD</span>
+            <span className="text-primary payment-total">{amount} JOD</span>
           </div>
         </div>
 
         <div className="payment-form-card glass-panel">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
-            <h2 style={{ fontSize: '1.4rem' }}>Payment Details</h2>
-            <div style={{ display: 'flex', gap: '8px' }}>
-              <div className="card-icon" style={{ background: '#1a1f36' }}>Visa</div>
-              <div className="card-icon" style={{ background: '#ff5f00' }}>MC</div>
+          <div className="payment-form-header">
+            <h2>Payment Details</h2>
+            <div className="card-icon-row">
+              <div className="card-icon visa">Visa</div>
+              <div className="card-icon mastercard">MC</div>
             </div>
           </div>
           
           <form className="checkout-form" onSubmit={handlePayment}>
             <div className="input-group">
-              <label>Name on Card</label>
+              <label className="field-label">Name on Card</label>
               <input type="text" className="vintage-input" placeholder="Tariq Al-Hassan" required disabled={status === 'processing'} />
             </div>
             <div className="input-group">
-              <label>Card Number</label>
-              <div style={{ position: 'relative' }}>
-                <CreditCard size={18} style={{ position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)', color: 'var(--color-text-muted)' }} />
-                <input type="text" className="vintage-input" placeholder="0000 0000 0000 0000" maxLength={19} required disabled={status === 'processing'} style={{ paddingLeft: '44px' }} />
+              <label className="field-label">Card Number</label>
+              <div className="payment-input-icon">
+                <CreditCard size={18} className="payment-card-glyph" />
+                <input type="text" className="vintage-input payment-card-input" placeholder="0000 0000 0000 0000" maxLength={19} required disabled={status === 'processing'} />
               </div>
             </div>
             
             <div className="payment-row">
-              <div className="input-group" style={{ flex: 1 }}>
-                <label>Expiry (MM/YY)</label>
+              <div className="input-group">
+                <label className="field-label">Expiry (MM/YY)</label>
                 <input type="text" className="vintage-input" placeholder="12/28" maxLength={5} required disabled={status === 'processing'} />
               </div>
-              <div className="input-group" style={{ flex: 1 }}>
-                <label>CVC</label>
+              <div className="input-group">
+                <label className="field-label">CVC</label>
                 <input type="text" className="vintage-input" placeholder="123" maxLength={4} required disabled={status === 'processing'} />
               </div>
             </div>
             
-            <button type="submit" className="btn-primary" style={{ width: '100%', marginTop: '24px', padding: '16px', fontSize: '1.1rem', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }} disabled={status === 'processing'}>
+            <button type="submit" className="btn-primary payment-submit" disabled={status === 'processing'}>
               {status === 'processing' ? 'Processing...' : (
                 <>
                  <Lock size={18} /> Pay {amount} JOD
